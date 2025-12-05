@@ -1,0 +1,21 @@
+instance box models/box.obj
+
+material ground-material
+ambient 0.3 0.3 0.3
+diffuse 0.3 0.3 0.3
+specular 0.1 0.1 0.1
+shininess 5
+end-material
+
+group ground ground
+
+translate ground-t ground-t 20 0 20
+add-child ground-t ground
+scale ground-scale ground-scale 100 0 100
+add-child ground-scale ground-t
+leaf ground-leaf ground-leaf instanceof box
+assign-material ground-leaf ground-material
+add-child ground-leaf ground-scale
+
+assign-root ground
+

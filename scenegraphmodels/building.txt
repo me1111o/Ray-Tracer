@@ -1,0 +1,144 @@
+instance box models/box.obj
+instance cylinder models/cylinder.obj
+
+material wall-material1
+ambient 0.8 0.2 0.2
+diffuse 0.8 0.2 0.2
+specular 0.1 0.1 0.1
+shininess 10
+end-material
+
+material wall-material2
+ambient 0.8 0.3 0.3
+diffuse 0.8 0.3 0.3
+specular 0.1 0.1 0.1
+shininess 10
+end-material
+
+material wall-material3
+ambient 0.8 0.8 0.2
+diffuse 0.8 0.8 0.2
+specular 0.1 0.1 0.1
+shininess 10
+end-material
+
+material door-material
+ambient 0.5 0.3 0.1
+diffuse 0.5 0.3 0.1
+specular 0.1 0.1 0.1
+shininess 5
+end-material
+
+material window-material
+ambient 0.3 0.5 0.8
+diffuse 0.3 0.5 0.8
+specular 0.1 0.1 0.1
+shininess 5
+end-material
+
+material turret-material
+ambient 0.2 0.2 0.8
+diffuse 0.2 0.2 0.8
+specular 0.1 0.1 0.1
+shininess 10
+end-material
+
+material roof-material
+ambient 0.7 0.7 0.7
+diffuse 0.7 0.7 0.7
+specular 0.2 0.2 0.2
+shininess 20
+end-material
+
+
+group building building
+
+translate front-t front-t 20 0 20
+add-child front-t building
+translate front-wall front-wall 0 10 10
+add-child front-wall front-t
+scale front-scale front-scale 20 20 1
+add-child front-scale front-wall
+leaf front-leaf front-leaf instanceof box
+assign-material front-leaf wall-material2
+add-child front-leaf front-scale
+
+translate back-t back-t 20 0 20
+add-child back-t building
+translate back-wall back-wall 0 10 -10
+add-child back-wall back-t
+scale back-scale back-scale 20 20 1
+add-child back-scale back-wall
+leaf back-leaf back-leaf instanceof box
+assign-material back-leaf wall-material2
+add-child back-leaf back-scale
+
+translate left-t left-t 20 0 20
+add-child left-t building
+translate left-wall left-wall -10 10 0
+add-child left-wall left-t
+scale left-scale left-scale 1 20 20
+add-child left-scale left-wall
+leaf left-leaf left-leaf instanceof box
+assign-material left-leaf wall-material3
+add-child left-leaf left-scale
+
+translate right-t right-t 20 0 20
+add-child right-t building
+translate right-wall right-wall 10 10 0
+add-child right-wall right-t
+scale right-scale right-scale 1 20 20
+add-child right-scale right-wall
+leaf right-leaf right-leaf instanceof box
+assign-material right-leaf wall-material3
+add-child right-leaf right-scale
+
+translate door-t door-t 20 0 20
+add-child door-t building
+translate door door 0 5 10.6
+add-child door door-t
+scale door-scale door-scale 4 10 0.6
+add-child door-scale door
+leaf door-leaf door-leaf instanceof box
+assign-material door-leaf door-material
+add-child door-leaf door-scale
+
+translate window1-t window1-t 20 0 20
+add-child window1-t building
+translate window1 window1 -5 7 10.6
+add-child window1 window1-t
+scale window1-scale window1-scale 5 5 0.6
+add-child window1-scale window1
+leaf window1-leaf window1-leaf instanceof box
+assign-material window1-leaf window-material
+add-child window1-leaf window1-scale
+
+translate window2-t window2-t 20 0 20
+add-child window2-t building
+translate window2 window2 5 7 10.6
+add-child window2 window2-t
+scale window2-scale window2-scale 5 5 0.6
+add-child window2-scale window2
+leaf window2-leaf window2-leaf instanceof box
+assign-material window2-leaf window-material
+add-child window2-leaf window2-scale
+
+translate turret-t turret-t 20 0 20
+add-child turret-t building
+translate turret-pos turret-pos 8 12 8
+add-child turret-pos turret-t
+scale turret-scale turret-scale 4 20 3
+add-child turret-scale turret-pos
+leaf turret turret-instance instanceof cylinder
+assign-material turret turret-material
+add-child turret turret-scale
+
+translate roof-t roof-t 20 20 20
+add-child roof-t building
+scale roof-scale roof-scale 20 1 20
+add-child roof-scale roof-t
+leaf roof roof-instance instanceof box
+assign-material roof roof-material
+add-child roof roof-scale
+
+assign-root building

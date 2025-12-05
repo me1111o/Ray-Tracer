@@ -1,0 +1,296 @@
+instance box models/box.obj
+instance cylinder models/cylinder.obj
+instance sphere models/sphere.obj
+instance cone models/cone.obj
+
+# 定义材质
+material body-material
+ambient 0.2 0.2 0.2
+end-material
+
+material nose-material
+ambient 0.5 0.5 0.5
+end-material
+
+material propeller-material
+ambient 0.2 1 0.2
+end-material
+
+material landing-material
+ambient 1 0.2 0.2
+end-material
+
+material blade-material
+ambient  0.5 0.8 0.2
+end-material
+
+# root
+group drone drone
+
+group roll-node-x roll-node-x
+rotate roll-node-x roll-node-x 0 1 0 0
+
+group roll-node-y roll-node-y
+rotate roll-node-y roll-node-y 0 0 1 0
+
+group roll-node-z roll-node-z
+rotate roll-node-z roll-node-z 0 0 0 1
+
+# body
+group fuselage fuselage
+
+group cabin cabin
+translate t-cabin t-cabin 0 0 0
+scale s-cabin s-cabin 2.5 1 1.5
+leaf cabin-leaf cabin-leaf instanceof box
+assign-material cabin-leaf body-material
+add-child cabin-leaf s-cabin
+add-child s-cabin t-cabin
+add-child t-cabin cabin
+add-child cabin fuselage
+
+group nose nose
+# assuge X+ is front
+translate t-nose t-nose 1.25 0 0
+rotate r-nose r-nose -90 0 0 1
+scale s-nose s-nose 0.5 0.8 0.5
+leaf nose-leaf nose-leaf instanceof cone
+assign-material nose-leaf nose-material
+add-child nose-leaf s-nose
+add-child s-nose r-nose
+add-child r-nose t-nose
+add-child t-nose nose
+add-child nose fuselage
+
+# landing-gear(4 cylinder)
+group landing-gear landing-gear
+
+group left-leg left-leg
+
+translate t-left-leg-front t-left-leg-front -1 -0.5 0.5
+scale s-left-leg-front s-left-leg-front 0.2 0.5 0.2
+leaf leg-left-front leg-left-front instanceof cylinder
+assign-material leg-left-front landing-material
+add-child leg-left-front s-left-leg-front
+add-child s-left-leg-front t-left-leg-front
+
+translate t-left-leg-back t-left-leg-back 1 -0.5 0.5
+scale s-left-leg-back s-left-leg-back 0.2 0.5 0.2
+leaf leg-left-back leg-left-back instanceof cylinder
+assign-material leg-left-back landing-material
+add-child leg-left-back s-left-leg-back
+add-child s-left-leg-back t-left-leg-back
+
+
+add-child t-left-leg-front left-leg
+add-child t-left-leg-back left-leg
+add-child left-leg landing-gear
+
+
+group right-leg right-leg
+
+translate t-right-leg-front t-right-leg-front -1 -0.5 -0.5
+scale s-right-leg-front s-right-leg-front 0.2 0.5 0.2
+leaf leg-right-front leg-right-front instanceof cylinder
+assign-material leg-right-front landing-material
+add-child leg-right-front s-right-leg-front
+add-child s-right-leg-front t-right-leg-front
+
+translate t-right-leg-back t-right-leg-back 1 -0.5 -0.5
+scale s-right-leg-back s-right-leg-back 0.2 0.5 0.2
+leaf leg-right-back leg-right-back instanceof cylinder
+assign-material leg-right-back landing-material
+add-child leg-right-back s-right-leg-back
+add-child s-right-leg-back t-right-leg-back
+
+add-child t-right-leg-front right-leg
+add-child t-right-leg-back right-leg
+add-child right-leg landing-gear
+
+translate t-landing t-landing 0 -0.5 0
+add-child landing-gear t-landing
+add-child t-landing fuselage
+
+# Propeller L
+group left-propeller left-propeller
+
+translate t-left-stick t-left-stick 0 0.5 1
+scale s-left-stick s-left-stick 0.2 0.2 1
+leaf stick-left stick-left instanceof box
+assign-material stick-left propeller-material
+add-child stick-left s-left-stick
+add-child s-left-stick t-left-stick
+add-child t-left-stick left-propeller
+
+group left-hub left-hub
+translate t-left-hub t-left-hub 0 0.6 1.5
+# use a sphere as the middle of Propeller
+scale s-left-hub s-left-hub 0.2 0.3 0.2
+leaf hub-left hub-left instanceof sphere
+assign-material hub-left propeller-material
+add-child hub-left s-left-hub
+add-child s-left-hub t-left-hub
+add-child t-left-hub left-hub
+
+# 4 blade
+
+group blade-pivot-L blade-pivot-L
+translate blade-pivot-L blade-pivot-L 0 0.8 1.5
+
+# use this to rotate
+group r-blade-pivot-L r-blade-pivot-L
+rotate r-blade-pivot-L r-blade-pivot-L 45 0 1 0
+
+group blade-group-L blade-group-L
+
+# blade 1  
+group blade1-L blade1-L
+translate t-blade1-L t-blade1-L 0 0 0.3
+scale s-blade1-L s-blade1-L 0.1 0.05 0.7
+leaf leaf-blade1-L leaf-blade1-L instanceof box
+assign-material leaf-blade1-L blade-material
+add-child leaf-blade1-L s-blade1-L
+add-child s-blade1-L t-blade1-L
+add-child t-blade1-L blade1-L
+add-child blade1-L blade-group-L
+
+# blade 2
+group blade2-L blade2-L
+translate t-blade2-L t-blade2-L 0 0 -0.3
+scale s-blade2-L s-blade2-L 0.1 0.05 0.7
+leaf leaf-blade2-L leaf-blade2-L instanceof box
+assign-material leaf-blade2-L blade-material
+add-child leaf-blade2-L s-blade2-L
+add-child s-blade2-L t-blade2-L
+add-child t-blade2-L blade2-L
+add-child blade2-L blade-group-L
+
+# blade 3
+group blade3-L blade3-L
+translate t-blade3-L t-blade3-L 0.3 0 0
+rotate r-blade3-L r-blade3-L 90 0 1 0
+scale s-blade3-L s-blade3-L 0.1 0.05 0.7
+leaf leaf-blade3-L leaf-blade3-L instanceof box
+assign-material leaf-blade3-L blade-material
+add-child leaf-blade3-L s-blade3-L
+add-child s-blade3-L r-blade3-L
+add-child r-blade3-L t-blade3-L
+add-child t-blade3-L blade3-L
+add-child blade3-L blade-group-L
+
+# blade 4
+group blade4-L blade4-L
+translate t-blade4-L t-blade4-L -0.3 0 0
+rotate r-blade4-L r-blade4-L 90 0 1 0
+scale s-blade4-L s-blade4-L 0.1 0.05 0.7
+leaf leaf-blade4-L leaf-blade4-L instanceof box
+assign-material leaf-blade4-L blade-material
+add-child leaf-blade4-L s-blade4-L
+add-child s-blade4-L r-blade4-L
+add-child r-blade4-L t-blade4-L
+add-child t-blade4-L blade4-L
+add-child blade4-L blade-group-L
+
+
+add-child blade-group-L r-blade-pivot-L
+add-child r-blade-pivot-L blade-pivot-L
+add-child blade-pivot-L left-hub
+add-child left-hub left-propeller
+add-child left-propeller fuselage
+
+
+
+# Propeller R
+group right-propeller right-propeller
+
+translate t-right-stick t-right-stick 0 0.5 -1
+scale s-right-stick s-right-stick 0.2 0.2 1
+leaf stick-right stick-right instanceof box
+assign-material stick-right propeller-material
+add-child stick-right s-right-stick
+add-child s-right-stick t-right-stick
+add-child t-right-stick right-propeller
+
+group right-hub right-hub
+translate t-right-hub t-right-hub 0 0.6 -1.5
+# use a sphere as the middle of Propeller
+scale s-right-hub s-right-hub 0.2 0.3 0.2
+leaf hub-right hub-right instanceof sphere
+assign-material hub-right propeller-material
+add-child hub-right s-right-hub
+add-child s-right-hub t-right-hub
+add-child t-right-hub right-hub
+
+# 4 blade
+
+group blade-pivot-R blade-pivot-R
+translate blade-pivot-R blade-pivot-R 0 0.8 -1.5
+
+# use this to rotate
+group r-blade-pivot-R r-blade-pivot-R
+rotate r-blade-pivot-R r-blade-pivot-R 45 0 1 0
+
+group blade-group-R blade-group-R
+
+# blade 1  
+group blade1-R blade1-R
+translate t-blade1-R t-blade1-R 0 0 0.3
+scale s-blade1-R s-blade1-R 0.1 0.05 0.7
+leaf leaf-blade1-R leaf-blade1-R instanceof box
+assign-material leaf-blade1-R blade-material
+add-child leaf-blade1-R s-blade1-R
+add-child s-blade1-R t-blade1-R
+add-child t-blade1-R blade1-R
+add-child blade1-R blade-group-R
+
+# blade 2
+group blade2-R blade2-R
+translate t-blade2-R t-blade2-R 0 0 -0.3
+scale s-blade2-R s-blade2 0.1 0.05 0.7
+leaf leaf-blade2-R leaf-blade2-R instanceof box
+assign-material leaf-blade2-R blade-material
+add-child leaf-blade2-R s-blade2-R
+add-child s-blade2-R t-blade2-R
+add-child t-blade2-R blade2-R
+add-child blade2-R blade-group-R
+
+# blade 3
+group blade3-R blade3-R
+translate t-blade3-R t-blade3-R 0.3 0 0
+rotate r-blade3-R r-blade3-R 90 0 1 0
+scale s-blade3-R s-blade3-R 0.1 0.05 0.7
+leaf leaf-blade3-R leaf-blade3-R instanceof box
+assign-material leaf-blade3-R blade-material
+add-child leaf-blade3-R s-blade3-R
+add-child s-blade3-R r-blade3-R
+add-child r-blade3-R t-blade3-R
+add-child t-blade3-R blade3-R
+add-child blade3-R blade-group-R
+
+# blade 4
+group blade4-R blade4-R
+translate t-blade4-R t-blade4-R -0.3 0 0
+rotate r-blade4-R r-blade4-R 90 0 1 0
+scale s-blade4-R s-blade4-R 0.1 0.05 0.7
+leaf leaf-blade4-R leaf-blade4-R instanceof box
+assign-material leaf-blade4-R blade-material
+add-child leaf-blade4-R s-blade4-R
+add-child s-blade4-R r-blade4-R
+add-child r-blade4-R t-blade4-R
+add-child t-blade4-R blade4-R
+add-child blade4-R blade-group-R
+
+
+add-child blade-group-R r-blade-pivot-R
+add-child r-blade-pivot-R blade-pivot-R
+add-child blade-pivot-R right-hub
+add-child right-hub right-propeller
+add-child right-propeller fuselage
+
+
+# add body
+add-child fuselage roll-node-x
+add-child roll-node-x roll-node-y
+add-child roll-node-y roll-node-z
+add-child roll-node-z drone
+assign-root drone

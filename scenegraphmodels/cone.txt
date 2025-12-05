@@ -1,0 +1,36 @@
+# all the instances
+instance box models/box-outside.obj
+instance sphere models/sphere.obj
+instance cylinder models/cylinder.obj
+instance cone models/cone.obj
+
+# material
+material sphere-material-2
+emission 0 0 0
+ambient 1 1 1
+diffuse 0.7 0.7 0.7
+specular 0.7 0.7 0.7
+shininess 128
+end-material
+
+# light
+light one-light
+ambient 0.7 0.7 0.7
+diffuse 1.0 1.0 1.0
+specular 1.0 1.0 1.0
+position 150 150 150
+end-light
+
+# the root
+group root root
+assign-light one-light root
+
+translate cone-translate cone-translate 0 0 0
+scale cone-scale cone-scale 20 40 20
+leaf one-cone one-cone instanceof cone
+assign-material one-cone sphere-material-2
+add-child one-cone cone-scale
+add-child cone-scale cone-translate
+add-child cone-translate root
+
+assign-root root

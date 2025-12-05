@@ -1,0 +1,138 @@
+# all the instances
+instance box models/box-outside.obj
+instance sphere models/sphere.obj
+
+# materials
+material box-material
+emission 0 0 0
+ambient 0.8 0.8 0
+diffuse 0.2 0.2 0
+specular 1 1 1
+shininess 50
+absorption 1.0
+reflection 0.0
+transparency 0.0
+end-material
+
+material box-material-2
+emission 0 0 0
+ambient 1 1 1
+diffuse 0.7 0.7 0.7
+specular 0.7 0.7 0.7
+shininess 128
+absorption 0.8
+reflection 0.2
+transparency 0.0
+end-material
+
+material box-material-3
+emission 0 0 0
+ambient 0.6 0.6 0.6
+diffuse 0.4 0.4 0.4
+specular 1 1 1
+shininess 80
+absorption 0.8
+reflection 0.2
+transparency 0.0
+end-material
+
+material sphere-material
+emission 0 0 0
+ambient 0.5 0.5 0.5
+diffuse 0.2 0.2 0.2
+specular 1 1 1
+shininess 128
+end-material
+
+material sphere-material-2
+emission 0 0 0
+ambient 1 1 1
+diffuse 0.7 0.7 0.7
+specular 0.7 0.7 0.7
+shininess 128
+end-material
+
+material mirror-material
+emission 0 0 0
+ambient 0 0 0
+diffuse 0 0 0
+specular 0 0 0
+shininess 0
+absorption 0
+reflection 1
+transparency 0
+end-material
+
+# lights
+
+light one-light
+ambient 0.3 0.3 0.3
+diffuse 1.0 1.0 1.0
+specular 1.0 1.0 1.0
+position 150 150 150
+end-light
+
+light three-light
+ambient 0.5 0.5 0.5
+diffuse 0.2 0.2 0.2
+specular 0.2 0.2 0.2
+position -200 -50 0
+end-light
+
+
+# textures
+image die textures/moon.ppm
+image checkerboard textures/checkerboard.ppm
+image earthmap textures/earthmap.ppm
+
+
+# the root
+group root root
+assign-light one-light root
+assign-light three-light root
+
+translate b1-translate b1-translate -50 0 0
+scale b1-scale b1-scale 50 50 50
+leaf one-box one-box instanceof box 
+assign-material one-box box-material
+add-child one-box b1-scale
+add-child b1-scale b1-translate
+add-child b1-translate root
+
+translate b3-translate b3-translate -150 0 0
+scale b3-scale b3-scale 50 50 50
+leaf one-box one-box instanceof box 
+assign-material one-box box-material-3
+add-child one-box b3-scale
+add-child b3-scale b3-translate
+add-child b3-translate root
+
+
+translate b2-translate b2-translate 0 -125 0
+scale b2-scale b2-scale 400 5 400
+leaf two-box two-box instanceof box 
+assign-material two-box box-material-2
+add-child two-box b2-scale
+add-child b2-scale b2-translate
+add-child b2-translate root
+
+
+translate s1-translate s1-translate 50 0 0
+scale s1-scale s1-scale 25 25 25
+leaf one-sphere one-sphere instanceof sphere 
+assign-material one-sphere mirror-material
+add-child one-sphere s1-scale
+add-child s1-scale s1-translate
+add-child s1-translate root
+
+
+translate s2-translate s2-translate 150 0 0
+scale s2-scale s2-scale 25 25 25
+leaf two-sphere two-sphere instanceof sphere 
+assign-material two-sphere sphere-material
+add-child two-sphere s2-scale
+add-child s2-scale s2-translate
+add-child s2-translate root
+
+assign-root root
+

@@ -1,0 +1,43 @@
+group scene scene
+
+translate t-drone t-drone 50 100 50
+add-child t-drone scene
+
+scale s-drone s-drone 10 10 10
+add-child s-drone t-drone
+
+import drone scenegraphmodels/drone.txt
+add-child drone s-drone
+
+translate t-human-1 t-human-1 -20 0 150
+add-child t-human-1 scene
+
+scale s-human-1 s-human-1 30 30 30
+add-child s-human-1 t-human-1
+
+import human-1 scenegraphmodels/humanoid-commands-V1.txt
+add-child human-1 s-human-1
+
+
+translate t-human-2 t-human-2 120 0 150
+add-child t-human-2 scene
+
+scale s-human-2 s-human-2 30 30 30
+add-child s-human-2 t-human-2
+
+import human-2 scenegraphmodels/humanoid-commands-V2.txt
+add-child human-2 s-human-2
+
+scale s-ground s-ground 3 3 3
+add-child s-ground scene
+
+import ground scenegraphmodels/ground.txt
+add-child ground s-ground
+
+scale s-building s-building 3 3 3
+add-child s-building scene
+
+import building scenegraphmodels/building.txt
+add-child building s-building
+
+assign-root scene
