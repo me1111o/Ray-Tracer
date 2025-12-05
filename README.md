@@ -7,5 +7,7 @@ Reflections:
 If a material is reflective, the ray tracer casts a reflection ray. The final color is a blend of direct illumination and reflected light. A bounce parameter (default 5) limits the number of reflections.
 
 Contributors:
+
 Tingrui Zhang
+
 Ruixuan Yang
