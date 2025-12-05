@@ -6,6 +6,6 @@ Calculates color using ambient, diffuse, and specular components. A shadow ray (
 Reflections:
 If a material is reflective, the ray tracer casts a reflection ray. The final color is a blend of direct illumination and reflected light. A bounce parameter (default 5) limits the number of reflections.
 
-Contributors£º
+Contributors:
 Tingrui Zhang
 Ruixuan Yang
